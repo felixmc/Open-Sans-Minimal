@@ -15,7 +15,7 @@
 					<p class="post-meta">posted at <b><?php the_time('F jS, Y') ?></b> in <?php the_category(', ') ?> <?php the_tags('| tags: ', ', ', ''); ?> <?php edit_post_link('edit', ' | ', ''); ?></p>
 				</article>
 				<?php if(is_single()): ?>
-					party
+					<?php comment_form(); ?>
 				<?php endif; ?>
 			<?php endwhile; ?>
 
