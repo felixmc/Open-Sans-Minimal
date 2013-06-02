@@ -188,6 +188,11 @@ body {
 	margin-bottom: 30px;
 }
 
+.post img {
+	max-width: 100%;
+	height: auto;	
+}
+
 .post .post-meta {
 	font-size: 14px;
 }
