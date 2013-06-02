@@ -193,6 +193,10 @@ body {
 	height: auto;	
 }
 
+.post pre, .post p {
+	word-wrap: break-word;
+}
+
 .post .post-meta {
 	font-size: 14px;
 }
