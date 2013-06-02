@@ -6,135 +6,231 @@ Version: 1.0
 Author: Felix Milea-Ciobanu
 Author URI: http://felixmc.com/
 */
-.aligncenter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+
+/* FONTS */
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 
-.alignleft {
-	float: left;
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 600;
+	src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 
-.alignright {
-	float: right;
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 400;
+	src: local('Open Sans Italic'), local('OpenSans-Italic'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/xjAJXh38I15wypJXxuGMBobN6UDyHWBl620a-IRfuBk.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'fontello';
+	src: url('fonts/fontello.eot?51393224');
+	src: url('fonts/fontello.eot?51393224#iefix') format('embedded-opentype'),
+			 url('fonts/fontello.svg?51393224#fontello') format('svg'),
+			 url('fonts/fontello.woff?51393224') format('woff'),
+			 url('fonts/fontello.ttf?51393224') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* CSS RESET */
 body {
-	font-size: 80%; /* Resets 1em to 10px */
-	background-color:white;
-	}
-#content {
-	float:left;
-	font-size: 1.2em;
-	width:600px;
-	}
-#sidebar {
-	width:120px;
-	float:right;
-	text-align:left;
-	}	
-#footer {
-	padding: 20px 0 0 1px;
-	margin-top: 0;
-	width: 100%;
-	clear: both;
-	text-align:left;
-	}	
-#page {
-	padding: 0;
-	width: 740px;
-	float:left;
-	margin-left:20px;
-	}
-#commentform input {
-	width: 170px;
-	padding: 2px;
-	margin: 5px 5px 1px 0;
-	}
-
-#commentform textarea {
-	width: 100%;
-	padding: 2px;
-	}
-
-h3, h2, h1{
-	margin-top:20px;
-	margin-bottom:0px;
-	}
-	
-.narrowcolumn .postmetadata {
-	font-size:small;
-	margin-top:0px;
-	margin-bottom:5px;
-	}
-
-.more-link {
-text-align:left;
-}
-
-.navigation {
-	margin-top: 10px;
-	margin-bottom: 50px;
-	}
-	
-#header p{
-	margin:0px;
-	padding:0px;
-	}
-	
-#sidebar ul, #sidebar ul ol {
 	margin: 0;
 	padding: 0;
-	}
-
-#sidebar ul li {
-	list-style-type: none;
-	list-style-image: none;
-	}
-
-.post {
-border-bottom:1px solid black;
 }
 
-	/* Begin Images */
-p img {
-	padding: 0;
-	max-width: 100%;
-	}
 
-/*	Using 'class="alignright"' on an image will (who would've
-	thought?!) align the image to the right. And using 'class="centered',
-	will of course center the image. This is much better than using
-	align="center", being much more futureproof (and valid) */
-a img {
-	border: none;
-	}
-img.centered {
+/* GLOBAL STYLES */
+* {
+	font-family: "Open Sans", Helvetica, Sans-Serif;
+}
+
+a:link, a:visited, a:active {
+	color: rgb(46, 153, 187);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: "fontello";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+ 
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: .2em;
+	text-align: center;
+	opacity: .4;
+ 
+	font-variant: normal;
+	text-transform: none;
+		  
+	margin-left: .2em; 
+}
+ 
+.icon-search:before { content: '\e800'; }
+
+.wrapper {
+	width: 1000px;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	}
-	
-img.alignright {
-	padding: 4px;
-	margin: 0 0 2px 7px;
-	display: inline;
-	}
+	margin: 0 auto;
+}
 
-img.alignleft {
-	padding: 4px;
-	margin: 0 7px 2px 0;
-	display: inline;
-	}
-
-.alignright {
-	float: right;
-	}
-	
-.alignleft {
+.left-column {
+	width: 350px;
 	float: left;
-	}
-/* End Images */
+	margin-right: 20px;
+}
 
-	
+.right-column {
+	width: 630px;
+	float: right;
+}
+
+.container:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* STRUCTURE */
+body {
+	background-color: #fff;
+}
+
+#header {
+	background: rgb(46, 153, 187);
+	padding: 10px 0;
+}
+
+#header h1 {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 30px;
+}
+
+#header a {
+	color: #fff;
+}
+
+#header .menu {
+	padding-left: 0;
+}
+
+#header .menu li {
+	float: left;
+	list-style-type: none;
+	margin-right: 60px;
+	font-weight: 600;
+}
+
+#header .container {
+	position: relative;
+}
+
+#header .search-form {
+	position: absolute;
+	right: 0;
+	height: 30px;
+	bottom: -50px;
+	background: #ececec;
+	padding: 5px 10px;
+	padding-left: 35px;
+}
+
+#header .search-form i {
+	position: absolute;
+	left: 7px;
+	top: 10px;
+}
+
+#header .search-form input {
+	height: 100%;
+	width: 100%;
+	border: none;
+	outline: none;
+	background: inherit;
+	color: #333;
+}
+
+.post {
+	margin-top: 70px;
+}
+
+.post h2 {
+	font-size: 26px;
+	font-weight: 400;
+}
+
+.post p {
+	color: #303030;
+	font-size: 16px;
+	line-height: 28px;
+	margin-bottom: 30px;
+}
+
+.post .post-meta {
+	font-size: 14px;
+}
+
+.pagetitle {
+	text-align: center;
+	font-size: 30px;
+	margin-top: 60px;
+}
+
+
+
+#footer {
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

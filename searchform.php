@@ -1,6 +1,4 @@
-<form method="get" id="searchform" action="<?php bloginfo('url'); ?>/">
-<label class="hidden" for="s"><?php _e('Search for:'); ?></label>
-<div><input type="text" value="<?php the_search_query(); ?>" name="s" id="s" />
-<input type="submit" id="searchsubmit" value="Search" />
-</div>
+<form method="get" class="search-form" action="<?php bloginfo('url'); ?>/">
+	<i class="icon-search"></i>
+	<input type="text" value="<?php the_search_query(); ?>" name="s" id="s" placeholder="search" />
 </form>

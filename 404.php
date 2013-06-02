@@ -1,11 +1,9 @@
 <?php get_header(); ?>
 
-	<div id="content" class="narrowcolumn">
+	<div id="content" class="wrapper">
 
-		<h2 class="center">Error 404 - Not Found</h2>
+		<h2 class="pagetitle">Error 404 - Not Found</h2>
 
 	</div>
-
-<?php get_sidebar(); ?>
 
 <?php get_footer(); ?>
