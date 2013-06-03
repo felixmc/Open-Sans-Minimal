@@ -1,88 +1,105 @@
-<div id="comments">
-<?php if ( post_password_required() ) : ?>
-	<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', 'wpzoom' ); ?></p>
- <?php
-		/* Stop the rest of comments.php from being processed,
-		 * but don't kill the script entirely -- we still have
-		 * to fully load the template.
-		 */
-		return;
-	endif;
+<?php // Do not delete these lines
+	if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
+		die ('Please do not load this page directly. Thanks!');
+
+	if (!empty($post->post_password)) { // if there's a password
+		if ($_COOKIE['wp-postpass_' . COOKIEHASH] != $post->post_password) {  // and it doesn't match the cookie
+			?>
+
+			<p class="nocomments">This post is password protected. Enter the password to view comments.</p>
+
+			<?php
+			return;
+		}
+	}
+
+	/* This variable is for alternating comment background */
+	$oddcomment = 'class="alt" ';
 ?>
 
-<?php
-	// You can start editing here -- including this comment!
-?>
+<!-- You can start editing here. -->
 
-<?php if ( have_comments() ) : ?>
-
-	<h3><?php comments_number(__('No Comments','wpzoom'), __('One Comment','wpzoom'), __('% Comments','wpzoom') );?></h3>
- 
-	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
-		<div class="navigation">
-			<?php paginate_comments_links( array('prev_text' => ''.__( '<span class="meta-nav">&larr;</span> Older Comments', 'wpzoom' ).'', 'next_text' => ''.__( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'wpzoom' ).'') );?>
-		</div> <!-- .navigation -->
-	<?php endif; // check for comment navigation ?>
+<?php if ($comments) : ?>
+	<h3 id="comments"><?php comments_number('No Responses', 'One Response', '% Responses' );?> to &#8220;<?php the_title(); ?>&#8221;</h3>
 
 	<ol class="commentlist">
-		<?php
-			/* Loop through and list the comments. Tell wp_list_comments()
-			 * to use wpzoom_comment() to format the comments.
-			 * If you want to overload this in a child theme then you can
-			 * define wpzoom_comment() and that will be used instead.
-			 * See wpzoom_comment() in functions/theme/functions.php for more.
-			 */
-			wp_list_comments( array( 'callback' => 'wpzoom_comment' ) );
-		?>
+
+	<?php foreach ($comments as $comment) : ?>
+
+		<li <?php echo $oddcomment; ?>id="comment-<?php comment_ID() ?>">
+			<?php echo get_avatar( $comment, 32 ); ?>
+			<cite><?php comment_author_link() ?></cite> Says:
+			<?php if ($comment->comment_approved == '0') : ?>
+			<em>Your comment is awaiting moderation.</em>
+			<?php endif; ?>
+			<br />
+
+			<small class="commentmetadata"><a href="#comment-<?php comment_ID() ?>" title=""><?php comment_date('F jS, Y') ?> at <?php comment_time() ?></a> <?php edit_comment_link('edit','&nbsp;&nbsp;',''); ?></small>
+
+			<?php comment_text() ?>
+
+		</li>
+
+	<?php
+		/* Changes every other comment to a different class */
+		$oddcomment = ( empty( $oddcomment ) ) ? 'class="alt" ' : '';
+	?>
+
+	<?php endforeach; /* end for each comment */ ?>
+
 	</ol>
 
-	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
-		<div class="navigation">
-			<?php paginate_comments_links( array('prev_text' => ''.__( '<span class="meta-nav">&larr;</span> Older Comments', 'wpzoom' ).'', 'next_text' => ''.__( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'wpzoom' ).'') );?>
-		</div><!-- .navigation -->
-	<?php endif; // check for comment navigation ?>
- 
+ <?php else : // this is displayed if there are no comments so far ?>
 
-	<?php else : // or, if we don't have comments:
+	<?php if ('open' == $post->comment_status) : ?>
+		<!-- If comments are open, but there are no comments. -->
 
-		/* If there are no comments and comments are closed,
-		 * let's leave a little note, shall we?
-		 */
-		if ( ! comments_open() ) :
-	?>
-		<p class="nocomments"><?php _e( 'Comments are closed.', 'wpzoom' ); ?></p>
-	<?php endif; // end ! comments_open() ?>
+	 <?php else : // comments are closed ?>
+		<!-- If comments are closed. -->
+		<p class="nocomments">Comments are closed.</p>
 
-<?php endif; // end have_comments() ?>
+	<?php endif; ?>
+<?php endif; ?>
 
-<?php 
-$custom_comment_form = array( 'fields' => apply_filters( 'comment_form_default_fields', array(
-    'author' => '<div class="form_fields"><p class="comment-form-author">' .
-			'<label for="author">' . __( 'Your Name' , 'wpzoom' ) . '</label> ' .
-			( $req ? '<span class="required_lab">*</span>' : '' ) .
- 			'<input id="author" name="author" type="text" value="' .
-			esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' class="required" />' .
- 			'</p>',
-    'email'  => '<p class="comment-form-email">' .
-			'<label for="email">' . __( 'Your Email' , 'wpzoom' ) . '</label> ' .
-			( $req ? '<span class="required_lab">*</span>' : '' ) .
- 			'<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' class="required email" />' .
- 			'</p>',
-    'url'    =>  '<p class="comment-form-url">' .
-			'<label for="email">' . __( 'Your Website' , 'wpzoom' ) . '</label> ' .
- 			'<input id="url" name="url" type="text" value="' . esc_attr(  $commenter['comment_author_url'] ) . '" size="30"' . $aria_req . ' />' .
- 			'</p></div><div class="clear"></div>') ),
-	'comment_field' => '<p class="comment-form-comment">' .
-			'<label for="comment">' . __( 'Comment' , 'wpzoom' ) . '</label> ' .
- 			'<textarea id="comment" name="comment" cols="35" rows="5" aria-required="true" class="required"></textarea>' .
-			'</p><div class="clear"></div>',
-	'logged_in_as' => '<p class="logged-in-as">' . sprintf( __( 'Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s">Log out?</a>' ), admin_url( 'profile.php' ), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>',
-	'title_reply' => __( 'Leave a Reply' , 'wpzoom' ),
-  	'cancel_reply_link' => __( 'Cancel' , 'wpzoom' ),
-	'label_submit' => __( 'Submit' , 'wpzoom' ),
-	'comment_form_after' => '<div class="clear"></div>',
-);
-comment_form($custom_comment_form); 
-?>
- 
-</div><!-- #comments -->
+
+<?php if ('open' == $post->comment_status) : ?>
+
+<h3 id="respond">Leave a Reply</h3>
+
+<?php if ( get_option('comment_registration') && !$user_ID ) : ?>
+<p>You must be <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>">logged in</a> to post a comment.</p>
+<?php else : ?>
+
+<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
+
+<?php if ( $user_ID ) : ?>
+
+<p>Logged in as <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="Log out of this account">Log out &raquo;</a></p>
+
+<?php else : ?>
+
+<p><input type="text" name="author" id="author" value="<?php echo $comment_author; ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
+<label for="author"><small>Name <?php if ($req) echo "(required)"; ?></small></label></p>
+
+<p><input type="text" name="email" id="email" value="<?php echo $comment_author_email; ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
+<label for="email"><small>Mail (will not be published) <?php if ($req) echo "(required)"; ?></small></label></p>
+
+<p><input type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" size="22" tabindex="3" />
+<label for="url"><small>Website</small></label></p>
+
+<?php endif; ?>
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code><?php echo allowed_tags(); ?></code></small></p>-->
+
+<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />
+</p>
+<?php do_action('comment_form', $post->ID); ?>
+
+</form>
+
+<?php endif; // If registration required and not logged in ?>
+
+<?php endif; // if you delete this the sky will fall on your head ?>
