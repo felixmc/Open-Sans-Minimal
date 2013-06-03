@@ -117,6 +117,10 @@ a:hover {
 	width: 100%;
 }
 
+#header .menu li {
+	margin-right: 40px;
+}
+
 #header .search-form {
 	width: auto;
 	left: 0;
@@ -138,6 +142,10 @@ a:hover {
 	.right-column {
 		width: 63%;
 		float: right;
+	}
+
+	#header .menu li {
+		margin-right: 60px;
 	}
 
 	#header .search-form {
@@ -179,8 +187,11 @@ body {
 #header .menu li {
 	float: left;
 	list-style-type: none;
-	margin-right: 60px;
 	font-weight: 600;
+}
+
+#header .menu li:last-of-type {
+	margin-right: 0;
 }
 
 #header .container {
@@ -280,7 +291,9 @@ body {
 	margin-right: 10px;
 }
 
-
+#footer .menu li:last-of-type:after {
+	margin-right: 0;
+}
 
 
 
