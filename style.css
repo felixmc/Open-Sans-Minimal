@@ -117,6 +117,10 @@ a:hover {
 	width: 100%;
 }
 
+#header h1 {
+	font-size: 20px;
+}
+
 #header .menu li {
 	margin-right: 40px;
 }
@@ -158,6 +162,10 @@ a:hover {
 		margin-top: 20px;
 		padding-bottom: 0;
 	}
+
+	#header h1 {
+		font-size: 30px;
+	}
 }
 
 /* General Styles */
@@ -173,7 +181,6 @@ body {
 #header h1 {
 	margin-top: 0;
 	margin-bottom: 0;
-	font-size: 30px;
 }
 
 #header a {
