@@ -93,30 +93,66 @@ a:hover {
  
 .icon-search:before { content: '\e800'; }
 
-.wrapper {
-	width: 1000px;
-	display: block;
-	margin: 0 auto;
-}
-
-.left-column {
-	width: 350px;
-	float: left;
-	margin-right: 20px;
-}
-
-.right-column {
-	width: 630px;
-	float: right;
-}
-
 .container:after {
 	content: "";
 	display: block;
 	clear: both;
 }
 
-/* STRUCTURE */
+/* Structure and Responsiveness */
+
+.wrapper {
+	width: 90%;
+	max-width: 1000px;
+	display: block;
+	margin: 0 auto;
+}
+
+.left-column {
+	width: 100%;
+	margin-right: 0;
+}
+
+.right-column {
+	width: 100%;
+}
+
+#header .search-form {
+	width: auto;
+	left: 0;
+}
+
+#footer {
+	padding-top: 15px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+}
+
+@media (min-width: 700px) {
+	.left-column {
+		width: 35%;
+		float: left;
+		margin-right: 2%;
+	}
+
+	.right-column {
+		width: 63%;
+		float: right;
+	}
+
+	#header .search-form {
+		left: auto;
+		right: 0;
+		width: 200px;
+	}
+
+	#footer {
+		margin-top: 20px;
+		padding-bottom: 0;
+	}
+}
+
+/* General Styles */
 body {
 	background-color: #fff;
 }
@@ -219,18 +255,17 @@ body {
 
 #footer {
 	font-size: 14px;
-	margin-top: 20px;
 	border-top: 1px solid #ccc;
+	padding-top: 15px;
 }
 
 #footer p {
-
+	margin-top: 0;
 }
 
 #footer .menu {
 	margin: 0;
 	padding-left: 0;
-	margin-top: 14px;
 }
 
 #footer .menu li {
