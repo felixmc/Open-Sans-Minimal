@@ -192,6 +192,12 @@ body {
 	margin-bottom: 30px;
 }
 
+.post code {
+	font-size: 15px;
+	background: #ececec;
+	padding: 2px 5px;
+}
+
 .post img {
 	max-width: 100%;
 	height: auto;	
