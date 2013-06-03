@@ -4,6 +4,10 @@ register_nav_menus( array(
 	'primary' => 'Primary Navigation',
 ));
 
+register_nav_menus( array(
+	'footer' => 'Footer Navigation',
+));
+
 function twentytwelve_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	switch ( $comment->comment_type ) :
